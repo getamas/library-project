@@ -14,6 +14,11 @@ h3 {
     align-items: center;
 }
 
+.book-info {
+    display: flex;
+    align-items: center;
+}
+
 .book-status {
     display: inline-block;
     width: 80px;
@@ -22,5 +27,11 @@ h3 {
     color: #fff;
     background: #2ecc71;
     padding: 4px 0;
-    margin-left: 20px;
+    margin: 0 15px 0 20px;
+    cursor: pointer;
+}
+
+.remove .icon {
+    font-size: 22px;
+    color: #e74c3c;
 }

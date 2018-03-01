@@ -17,33 +17,32 @@ function addBookToLibrary(e) {
           pages = document.getElementById('book-pages').value,
           read = document.getElementById('book-status').value;
 
-    myLibrary.push(new Book(title, author, Number(pages), Boolean(read)));
+    let book = new Book(title, author, Number(pages), read);
+    myLibrary.push(book);
+    addBookToUI(book, myLibrary.length);
 
     bookForm.reset();
 }
 
-function render() {
+function addBookToUI(book, index) {
     let bookList = document.querySelector('#book-list .collection');
-    myLibrary.forEach((book, index) => {
-        let li = document.createElement('li');
-        li.className = 'collection-item';
-        li.dataset.index = index;
-        li.innerHTML = `
-            <div class="book-info">
-                <h3 class="book-cover">${book.title} by ${book.author}</h3>
-            </div>
 
-            <div class="book-info">
-                <span class="book-pages">${book.pages} pages</span>
-                <span class="book-status">${book.read === false ? "Not Read" : "Read"}</span>
-            <div>
-        `;
-        bookList.appendChild(li);
-    });
+    let li = document.createElement('li');
+    li.className = 'collection-item';
+    li.dataset.index = index;
+    li.innerHTML = `
+        <div class="book-info">
+            <h3 class="book-cover">${book.title} by ${book.author}</h3>
+        </div>
+
+        <div class="book-info">
+            <span class="book-pages">${book.pages} pages</span>
+            <span class="book-status ${book.read === "false" ? "red" : "green"}">${book.read === "false" ? "Not Read" : "Read"}</span>
+            <a class="remove" href="#"><i class="fa fa-times-circle icon"></i></a>
+        <div>
+    `;
+    bookList.appendChild(li);
 }
 
 // Event Listeners
-bookForm.addEventListener('submit', () => {
-    addBookToLibrary(event);
-    render();
-});
+bookForm.addEventListener('submit', addBookToLibrary);
