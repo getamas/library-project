@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Library Project</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>My Library</h2>
+        <div class="row">
+                    <form class="col s12" id="book-form">
+                      <div class="row">
+                        <div class="input-field col s4">
+                          <input id="book-title" type="text">
+                          <label for="book-title">Book Title</label>
+                        </div>
+                        <div class="input-field col s3">
+                          <input id="book-author" type="text">
+                          <label for="book-author">Book Author</label>
+                        </div>
+                        <div class="input-field col s1">
+                            <input id="book-pages" type="number">
+                            <label for="book-pages">Pages</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <select id="book-status">
+                                <option value="true" selected>Read</option>
+                                <option value="false">Not Read</option>
+                            </select>
+                        </div>
+                        <div class="input-field col s2">
+                            <input type="submit" class="btn waves-effect" value="Add">
+                        </div>
+                      </div>
+                    </form>
+        </div>
+
+        <div id="book-list">
+            <ul class="collection">
+
+            </ul>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

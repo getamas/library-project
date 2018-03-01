@@ -1,0 +1,26 @@
+
+.container {
+    margin-top: 60px;
+}
+
+h3 {
+    font-size: 18px;
+    margin: 0;
+}
+
+#book-list .collection-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.book-status {
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    border-radius: 3px;
+    color: #fff;
+    background: #2ecc71;
+    padding: 4px 0;
+    margin-left: 20px;
+}
