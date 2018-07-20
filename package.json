@@ -1,0 +1,23 @@
+{
+  "name": "library-project",
+  "version": "1.0.0",
+  "description": "A small project where you can keep track of what's in your library. https://webop.github.io/library-project",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webop/library-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/webop/library-project/issues"
+  },
+  "homepage": "https://github.com/webop/library-project#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^4.0.1"
+  }
+}

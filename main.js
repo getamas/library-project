@@ -1,9 +1,6 @@
 
-const bookForm = document.getElementById('book-form');
-let bookList = document.querySelector('#book-list .collection');
 let myLibrary = [];
 
-// Book Constructor
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -11,90 +8,34 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
-Book.prototype.changeReadStatus = function() {
-    return this.read = !this.read;
+function addBookToLibrary() {
+    let book1 = new Book('The Hobbit', 'J.R.R Tolkien', 297, false);
+    let book2 = new Book('Brave New World', 'A. Huxley', 200, true);
+
+
+    myLibrary.push(book1);
+    myLibrary.push(book2);
+    console.log(myLibrary);
 }
 
-// DOM load event listener for localStorage
-document.addEventListener('DOMContentLoaded', Storage.displayBooks);
+addBookToLibrary();
 
-// Add book to library
-function addBookToLibrary(e) {
-    e.preventDefault();
-    
-    const title = document.getElementById('book-title').value,
-          author = document.getElementById('book-author').value,
-          pages = document.getElementById('book-pages').value,
-          read = document.getElementById('book-status').value;
+// Display books on the page
+function render() {
+    const libraryDOM = document.querySelector('#library');
 
-    let book = new Book(title, author, Number(pages), read === 'read' ? true : false);
-    myLibrary.push(book);
-    addBookToUI(book, myLibrary.indexOf(book));
+    myLibrary.forEach(book => {
+        let bookElem = document.createElement('li');
+        bookElem.textContent = `
+            ${book.title} by ${book.author}, ${book.pages} pages, ${book.read ? 'read' : 'not read yet'}.
+        `;
 
-    Storage.addBook(book);
+        libraryDOM.appendChild(bookElem);
+    });
 
-    bookForm.reset();
 }
 
-// Append book to UI
-function addBookToUI(book, index) {
-    let li = document.createElement('li');
-    li.className = 'collection-item';
-    book.id = index;
-    li.dataset.id = index;
-    li.innerHTML = `
-        <div class="book-info">
-            <h3 class="book-cover">${book.title} by ${book.author}</h3>
-        </div>
+render();
 
-        <div class="book-info">
-            <span class="book-pages">${book.pages} pages</span>
-            <span class="book-status ${book.read === false ? "red" : "green"}">${book.read === false ? "Not Read" : "Read"}</span>
-            <i class="material-icons remove">clear</i>
-        <div>
-    `;
-    bookList.appendChild(li);
-}
 
-// Change book read status
-function changeReadStatus(target) {
-    if (target.classList.contains('book-status')) {
-        if (target.textContent === 'Read') {
-            target.textContent = 'Not Read';
-            target.classList.remove('green');
-            target.classList.add('red');
 
-            myLibrary.forEach((book, index) => {
-                if (index === Number(target.parentElement.parentElement.dataset.index)) {
-                    book.changeReadStatus();
-                }
-            });
-        } else {
-            target.textContent = 'Read';
-            target.classList.remove('red');
-            target.classList.add('green');
-
-            myLibrary.forEach((book, index) => {
-                if (index === Number(target.parentElement.parentElement.dataset.index)) {
-                    book.changeReadStatus();
-                }
-            });
-        }
-    }
-}
-
-// Remove book
-function removeItem(target) {
-    if (target.classList.contains('remove')) {
-        target.parentElement.parentElement.remove();
-
-        Storage.removeBook(Number(target.parentElement.parentElement.dataset.id));
-    }
-}
-
-// Event Listeners
-bookForm.addEventListener('submit', addBookToLibrary);
-bookList.addEventListener('click', function(e) {
-    removeItem(e.target);
-    changeReadStatus(e.target);
-});

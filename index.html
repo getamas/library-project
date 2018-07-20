@@ -6,56 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Library Project</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <div class="container">
-        <h2>My Library</h2>
-        <div class="row">
-                    <form class="col s12" id="book-form">
-                      <div class="row">
-                        <div class="input-field col s4">
-                          <input id="book-title" type="text">
-                          <label for="book-title">Book Title</label>
-                        </div>
-                        <div class="input-field col s3">
-                          <input id="book-author" type="text">
-                          <label for="book-author">Book Author</label>
-                        </div>
-                        <div class="input-field col s1">
-                            <input id="book-pages" type="number">
-                            <label for="book-pages">Pages</label>
-                        </div>
-                        <div class="input-field col s2">
-                            <select id="book-status">
-                                <option value="read" selected>Read</option>
-                                <option value="not-read">Not Read</option>
-                            </select>
-                        </div>
-                        <div class="input-field col s2">
-                            <input type="submit" class="btn waves-effect" value="Add">
-                        </div>
-                      </div>
-                    </form>
-        </div>
+    <form action="" id="new-book">
+        <input type="text" id="book-title" placeholder="Book title...">
+        <input type="text" id="book-author" placeholder="Book author...">
+        <input type="number" id="book-pages" placeholder="Number of pages...">
+        <select name="" id="book-read">
+            <option value="true">Read</option>
+            <option value="false">Not Read</option>
+        </select>
 
-        <div id="book-list">
-            <ul class="collection">
+        <input type="submit" value="Add Book">
+    </form>
+    <ul id="library">
 
-            </ul>
-        </div>
-    </div>
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-            $('select').material_select();
-        });
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <script src="storage.js"></script>
+    </ul>
     <script src="main.js"></script>
 </body>
 </html>
