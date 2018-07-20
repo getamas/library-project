@@ -8,17 +8,24 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
-function addBookToLibrary() {
-    let book1 = new Book('The Hobbit', 'J.R.R Tolkien', 297, false);
-    let book2 = new Book('Brave New World', 'A. Huxley', 200, true);
+function addBookToLibrary(event) {
+    // 'The Hobbit', 'J.R.R Tolkien', 297, false
+    event.preventDefault();
 
-
-    myLibrary.push(book1);
-    myLibrary.push(book2);
-    console.log(myLibrary);
+    let bookTitle = document.getElementById('book-title').value,
+        bookAuthor = document.getElementById('book-author').value,
+        bookPages = document.getElementById('book-pages').value,
+        bookRead = document.getElementById('book-read').value;
+    
+    return console.log(
+        {
+            title: bookTitle, 
+            author: bookAuthor, 
+            pages: parseInt(bookPages),
+            read: bookRead === 'true' ? true : false
+        });
 }
 
-addBookToLibrary();
 
 // Display books on the page
 function render() {
@@ -35,7 +42,8 @@ function render() {
 
 }
 
-render();
+// Event Listeners
+document.querySelector('#new-book').addEventListener('submit', addBookToLibrary);
 
 
 
