@@ -70,12 +70,19 @@ function addBookToLibrary(event) {
         ID = 0;
     }
     
+    // 1. Create a new book instance
     let book = new Book(ID, bookTitle, bookAuthor, bookPages, bookStatus);
     
+    // 2. Add book to the data structure
     myLibrary.push(book);
 
+    // 3. Add book to the UI
     book.addBooktoUI();
 
+    // 4. Add book to localStorage
+    storage.addBook(book);
+
+    // 5. Clear form fields
     bookFormDOM.reset();
 }
 
@@ -127,10 +134,16 @@ function toggleReadStatus(event) {
 
 }
 
-
 // Event Listeners
 bookFormDOM.addEventListener('submit', addBookToLibrary);
 libraryDOM.addEventListener('click', removeBook);
 libraryDOM.addEventListener('click', toggleReadStatus)
 
 
+// Init Application
+// function init() {
+//     console.log('Application has started');
+//     storage.displayBooks();
+// }
+
+// document.addEventListener('DOMContentLoaded', init);
