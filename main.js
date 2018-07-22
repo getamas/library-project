@@ -1,12 +1,13 @@
 
-
+// DOM elements
 const bookFormDOM = document.getElementById('new-book'),
       libraryDOM = document.getElementById('library'),
       bookTitleDOM = document.getElementById('book-title'),
       bookAuthorDOM = document.getElementById('book-author'),
       bookPagesDOM = document.getElementById('book-pages'),
       bookStatusDOM = document.getElementById('book-read');
-      
+   
+// My Library
 let myLibrary = [];
 
 
@@ -25,16 +26,30 @@ Book.prototype.addBooktoUI = function() {
     let bookElem = document.createElement('li');
     bookElem.dataset.id = this.id;
     bookElem.textContent = `
-        ${this.title} by ${this.author}, ${this.pages} pages, ${this.status ? 'read' : 'not read yet'}.
+        ${this.title} by ${this.author}, ${this.pages} pages.
     `;
 
     let removeBtn = document.createElement('button');
     removeBtn.textContent = 'Remove';
     removeBtn.className = 'remove-btn';
 
+    let statusBtn = document.createElement('button');
+    statusBtn.textContent = this.status ? 'Read' : 'Not Read';
+    statusBtn.className = 'status-btn';
+
     bookElem.appendChild(removeBtn);
+    bookElem.appendChild(statusBtn);
     libraryDOM.appendChild(bookElem);
 
+}
+
+// Change read status
+Book.prototype.changeStatus = function() {
+    if (this.status === true) {
+        this.status = false;
+    } else {
+        this.status = true;
+    }
 }
 
 
@@ -86,9 +101,36 @@ function removeBook(event) {
 
 }
 
+// Toggle read status
+function toggleReadStatus(event) {
+    let id, index, book;
+
+    if (event.target.classList.contains('status-btn')) {  
+
+        id = parseInt(event.target.parentNode.dataset.id);
+
+        myLibrary.forEach(curr => {
+            if (curr.id === id) {
+                book = curr;
+            }
+        });
+
+        if (event.target.textContent === 'Read') {
+            event.target.textContent = 'Not Read';
+            book.changeStatus();
+        } else {
+            event.target.textContent = 'Read';
+            book.changeStatus();
+        }
+
+    }
+
+}
+
 
 // Event Listeners
 bookFormDOM.addEventListener('submit', addBookToLibrary);
 libraryDOM.addEventListener('click', removeBook);
+libraryDOM.addEventListener('click', toggleReadStatus)
 
 
