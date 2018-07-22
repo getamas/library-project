@@ -1,49 +1,94 @@
 
+
+const bookFormDOM = document.getElementById('new-book'),
+      libraryDOM = document.getElementById('library'),
+      bookTitleDOM = document.getElementById('book-title'),
+      bookAuthorDOM = document.getElementById('book-author'),
+      bookPagesDOM = document.getElementById('book-pages'),
+      bookStatusDOM = document.getElementById('book-read');
+      
 let myLibrary = [];
 
-function Book(title, author, pages, read) {
+
+// Book Constructor
+function Book(id, title, author, pages, status) {
+    this.id = id;
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read = read;
+    this.status = status;
 }
 
+// Add book to UI 
+Book.prototype.addBooktoUI = function() {
+
+    let bookElem = document.createElement('li');
+    bookElem.dataset.id = this.id;
+    bookElem.textContent = `
+        ${this.title} by ${this.author}, ${this.pages} pages, ${this.status ? 'read' : 'not read yet'}.
+    `;
+
+    let removeBtn = document.createElement('button');
+    removeBtn.textContent = 'Remove';
+    removeBtn.className = 'remove-btn';
+
+    bookElem.appendChild(removeBtn);
+    libraryDOM.appendChild(bookElem);
+
+}
+
+
+// Add book to Library
 function addBookToLibrary(event) {
-    // 'The Hobbit', 'J.R.R Tolkien', 297, false
+
     event.preventDefault();
 
-    let bookTitle = document.getElementById('book-title').value,
-        bookAuthor = document.getElementById('book-author').value,
-        bookPages = document.getElementById('book-pages').value,
-        bookRead = document.getElementById('book-read').value;
+    let ID,
+        bookTitle = bookTitleDOM.value,
+        bookAuthor = bookAuthorDOM.value,
+        bookPages = parseInt(bookPagesDOM.value),
+        bookStatus = bookStatusDOM.value === 'true' ? true : false;
+
+    if (myLibrary.length > 0) {
+        ID = myLibrary[myLibrary.length - 1].id + 1;
+    } else {
+        ID = 0;
+    }
     
-    return console.log(
-        {
-            title: bookTitle, 
-            author: bookAuthor, 
-            pages: parseInt(bookPages),
-            read: bookRead === 'true' ? true : false
+    let book = new Book(ID, bookTitle, bookAuthor, bookPages, bookStatus);
+    
+    myLibrary.push(book);
+
+    book.addBooktoUI();
+
+    bookFormDOM.reset();
+}
+
+
+// Remove book from Library, UI
+function removeBook(event) {
+    let id, ids, index;
+
+    if (event.target.className === 'remove-btn') {
+
+        id = parseInt(event.target.parentNode.dataset.id);
+
+        ids = myLibrary.map(current => {
+            return current.id;
         });
-}
 
+        index = ids.indexOf(id);
 
-// Display books on the page
-function render() {
-    const libraryDOM = document.querySelector('#library');
+        myLibrary.splice(index, 1);
 
-    myLibrary.forEach(book => {
-        let bookElem = document.createElement('li');
-        bookElem.textContent = `
-            ${book.title} by ${book.author}, ${book.pages} pages, ${book.read ? 'read' : 'not read yet'}.
-        `;
-
-        libraryDOM.appendChild(bookElem);
-    });
+        event.target.parentNode.remove();
+    }
 
 }
+
 
 // Event Listeners
-document.querySelector('#new-book').addEventListener('submit', addBookToLibrary);
-
+bookFormDOM.addEventListener('submit', addBookToLibrary);
+libraryDOM.addEventListener('click', removeBook);
 
 
