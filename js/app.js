@@ -45,11 +45,7 @@ Book.prototype.addBooktoUI = function() {
 
 // Change read status
 Book.prototype.changeStatus = function() {
-    if (this.status === true) {
-        this.status = false;
-    } else {
-        this.status = true;
-    }
+    return this.status = !this.status
 }
 
 
