@@ -5,10 +5,115 @@
 *, *::before, *::after {
   box-sizing: border-box; }
 
+*:focus {
+  outline: none; }
+
 html {
   font-size: 62.5%;
   box-sizing: inherit; }
 
 body {
-  font-family: Helvetica, Arial, sans-serif;
-  line-height: 1.6; }
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  color: #333; }
+
+ul {
+  list-style-type: none; }
+
+.container {
+  max-width: 117rem;
+  margin: 0 auto; }
+
+h1 {
+  font-size: 4rem;
+  text-align: center;
+  padding: 10rem 0 6rem 0; }
+
+form#new-book {
+  display: flex;
+  justify-content: center; }
+  form#new-book input[type='text'],
+  form#new-book input[type='number'],
+  form#new-book select {
+    margin-right: 1rem;
+    padding: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 3px;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-size: 1.4rem;
+    color: #333;
+    transition: all .3s ease; }
+    form#new-book input[type='text']:focus,
+    form#new-book input[type='number']:focus,
+    form#new-book select:focus {
+      outline: none;
+      border-color: #666; }
+  form#new-book select {
+    background-color: #fff; }
+  form#new-book input[type='submit'] {
+    padding: 1rem 2rem;
+    background-color: #666;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif; }
+
+.library-container {
+  background-color: #ddd;
+  padding: 3rem 0;
+  margin-top: 5rem;
+  height: 100vh; }
+
+#library {
+  max-width: 117rem;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; }
+  #library .book {
+    position: relative;
+    background-color: #fff;
+    width: 24%;
+    margin-right: 1%;
+    margin-bottom: 3%;
+    padding: 1.5rem;
+    border-radius: 3px;
+    box-shadow: 1px 3px 3rem rgba(0, 0, 0, 0.2); }
+    #library .book:last-child {
+      margin-right: 0; }
+    #library .book .book-title {
+      font-size: 2rem; }
+    #library .book .book-author {
+      font-size: 1.4rem; }
+    #library .book .book-pages {
+      font-size: 1.2rem;
+      margin-top: 0.7rem;
+      margin-bottom: 4rem;
+      display: inline-block; }
+    #library .book .status-btn {
+      background-color: #fff;
+      border: none;
+      text-transform: uppercase;
+      font-family: 'Roboto', Arial, Helvetica, sans-serif;
+      font-weight: 900;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      color: #333;
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      cursor: pointer; }
+    #library .book .remove-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #fff;
+      border: none;
+      font-size: 1.6rem;
+      color: #e74c3c;
+      cursor: pointer; }

@@ -6,23 +6,34 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Library Project</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <form action="" id="new-book">
-        <input type="text" id="book-title" placeholder="Book title..." required>
-        <input type="text" id="book-author" placeholder="Book author..." required>
-        <input type="number" id="book-pages" placeholder="Number of pages..." required>
-        <select name="" id="book-read">
-            <option value="true" selected>Read</option>
-            <option value="false">Not Read</option>
-        </select>
+    <h1>Library App</h1>
 
-        <input type="submit" value="Add Book">
-    </form>
-    <ul id="library">
+    <div class="container">
+        <form action="" id="new-book">
+            <input type="text" id="book-title" placeholder="Book title..." required>
+            <input type="text" id="book-author" placeholder="Book author..." required>
+            <input type="number" id="book-pages" placeholder="Number of pages..." required>
+            <select name="" id="book-read">
+                <option value="true" selected>Read</option>
+                <option value="false">Not Read</option>
+            </select>
+    
+            <input type="submit" value="Add Book">
+        </form>
+    </div>
 
-    </ul>
+    <div class="library-container">
+        <ul id="library">
+            
+        </ul>
+    </div>
 
     <script src="js/storage.js"></script>
     <script src="js/app.js"></script>

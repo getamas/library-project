@@ -27,14 +27,18 @@ function Book(id, title, author, pages, status) {
 Book.prototype.addBooktoUI = function() {
 
     let bookElem = document.createElement('li');
+    bookElem.className = 'book';
     bookElem.dataset.id = this.id;
-    bookElem.textContent = `
-        ${this.title} by ${this.author}, ${this.pages} pages.
+    bookElem.innerHTML = `
+        <h3 class="book-title">${this.title}</h3>
+        <p class="book-author">by ${this.author}</p>
+        <span class="book-pages">${this.pages} pages</span>
     `;
 
     let removeBtn = document.createElement('button');
     removeBtn.textContent = 'Remove';
     removeBtn.className = 'remove-btn';
+    removeBtn.innerHTML = `<i class="fas fa-window-close"></i>`;
 
     let statusBtn = document.createElement('button');
     statusBtn.textContent = this.status ? 'Read' : 'Not Read';
@@ -90,9 +94,9 @@ function addBookToLibrary(event) {
 function removeBook(event) {
     let id, ids, index;
 
-    if (event.target.className === 'remove-btn') {
+    if (event.target.parentNode.className === 'remove-btn') {
 
-        id = parseInt(event.target.parentNode.dataset.id);
+        id = parseInt(event.target.parentNode.parentNode.dataset.id);
 
         ids = myLibrary.map(current => {
             return current.id;
@@ -104,7 +108,7 @@ function removeBook(event) {
         myLibrary.splice(index, 1);
 
         // 2. Remove book from the UI
-        event.target.parentNode.remove();
+        event.target.parentNode.parentNode.remove();
 
         // 3. Remove book from localStorage
         storage.removeBook(id);
