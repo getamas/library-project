@@ -10,6 +10,9 @@ const bookFormDOM = document.getElementById('new-book'),
 // My Library
 let myLibrary = [];
 
+// Init localStorage
+let storage = new Storage();
+
 
 // Book Constructor
 function Book(id, title, author, pages, status) {
@@ -21,12 +24,12 @@ function Book(id, title, author, pages, status) {
 }
 
 // Add book to UI 
-Book.prototype.addBooktoUI = function() {
+function addBooktoUI(book) {
 
     let bookElem = document.createElement('li');
-    bookElem.dataset.id = this.id;
+    bookElem.dataset.id = book.id;
     bookElem.textContent = `
-        ${this.title} by ${this.author}, ${this.pages} pages.
+        ${book.title} by ${book.author}, ${book.pages} pages.
     `;
 
     let removeBtn = document.createElement('button');
@@ -34,7 +37,7 @@ Book.prototype.addBooktoUI = function() {
     removeBtn.className = 'remove-btn';
 
     let statusBtn = document.createElement('button');
-    statusBtn.textContent = this.status ? 'Read' : 'Not Read';
+    statusBtn.textContent = book.status ? 'Read' : 'Not Read';
     statusBtn.className = 'status-btn';
 
     bookElem.appendChild(removeBtn);
@@ -73,7 +76,7 @@ function addBookToLibrary(event) {
     myLibrary.push(book);
 
     // 3. Add book to the UI
-    book.addBooktoUI();
+    addBooktoUI(book);
 
     // 4. Add book to localStorage
     storage.addBook(book);
@@ -137,9 +140,10 @@ libraryDOM.addEventListener('click', toggleReadStatus)
 
 
 // Init Application
-// function init() {
-//     console.log('Application has started');
-//     storage.displayBooks();
-// }
+function init() {
+    console.log('Application has started');
 
-// document.addEventListener('DOMContentLoaded', init);
+    storage.displayBooks();
+}
+
+document.addEventListener('DOMContentLoaded', init);
