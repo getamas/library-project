@@ -1,4 +1,5 @@
 
+
 function Storage() {
 
 }
@@ -13,14 +14,15 @@ Storage.prototype.getBooks = function() {
     }
 
     return books;
-
 }
 
 Storage.prototype.displayBooks = function() {
     const books = this.getBooks();
 
     books.forEach(book => {
-        addBooktoUI(book);
+        book = new Book(book.id, book.title, book.author, book.pages, book.status);
+
+        book.addBooktoUI();
     });
 }
 
@@ -32,5 +34,26 @@ Storage.prototype.addBook = function(book) {
     localStorage.setItem('books', JSON.stringify(books));
 }
 
+Storage.prototype.removeBook = function(id) {
+    const books = this.getBooks();
 
+    books.forEach((book, i) => {
+        if (book.id === id) {
+            books.splice(i, 1);
+        }
+    });
 
+    localStorage.setItem('books', JSON.stringify(books));
+}
+
+Storage.prototype.changeReadStatus = function(id) {
+    const books = this.getBooks();
+
+    books.forEach(book => {
+        if (book.id === id) {
+            book.status = !book.status
+        }
+    });
+
+    localStorage.setItem('books', JSON.stringify(books));
+}

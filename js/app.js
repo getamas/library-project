@@ -24,12 +24,12 @@ function Book(id, title, author, pages, status) {
 }
 
 // Add book to UI 
-function addBooktoUI(book) {
+Book.prototype.addBooktoUI = function() {
 
     let bookElem = document.createElement('li');
-    bookElem.dataset.id = book.id;
+    bookElem.dataset.id = this.id;
     bookElem.textContent = `
-        ${book.title} by ${book.author}, ${book.pages} pages.
+        ${this.title} by ${this.author}, ${this.pages} pages.
     `;
 
     let removeBtn = document.createElement('button');
@@ -37,7 +37,7 @@ function addBooktoUI(book) {
     removeBtn.className = 'remove-btn';
 
     let statusBtn = document.createElement('button');
-    statusBtn.textContent = book.status ? 'Read' : 'Not Read';
+    statusBtn.textContent = this.status ? 'Read' : 'Not Read';
     statusBtn.className = 'status-btn';
 
     bookElem.appendChild(removeBtn);
@@ -76,7 +76,7 @@ function addBookToLibrary(event) {
     myLibrary.push(book);
 
     // 3. Add book to the UI
-    addBooktoUI(book);
+    book.addBooktoUI();
 
     // 4. Add book to localStorage
     storage.addBook(book);
@@ -100,9 +100,14 @@ function removeBook(event) {
 
         index = ids.indexOf(id);
 
+        // 1. Remove book from the data structure
         myLibrary.splice(index, 1);
 
+        // 2. Remove book from the UI
         event.target.parentNode.remove();
+
+        // 3. Remove book from localStorage
+        storage.removeBook(id);
     }
 
 }
@@ -124,9 +129,13 @@ function toggleReadStatus(event) {
         if (event.target.textContent === 'Read') {
             event.target.textContent = 'Not Read';
             book.changeStatus();
+
+            storage.changeReadStatus(id);
         } else {
             event.target.textContent = 'Read';
             book.changeStatus();
+
+            storage.changeReadStatus(id);
         }
 
     }
@@ -143,7 +152,17 @@ libraryDOM.addEventListener('click', toggleReadStatus)
 function init() {
     console.log('Application has started');
 
+    // 1. Display books on the UI from localStorage
     storage.displayBooks();
+
+    // 2. Init data structure from localStorage
+    const books = storage.getBooks();
+
+    books.forEach(book => {
+        book = new Book(book.id, book.title, book.author, book.pages, book.status);
+
+        myLibrary.push(book);
+    });
 }
 
 document.addEventListener('DOMContentLoaded', init);
