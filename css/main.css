@@ -117,3 +117,22 @@ form#new-book {
       font-size: 1.6rem;
       color: #e74c3c;
       cursor: pointer; }
+      .github-link {
+        text-align: center;
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        color: #3498db;
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+    } 
+    .fa-github {
+        font-size: 20px;
+        vertical-align: middle;
+        padding-right: 3px;
+        padding-left: 3px;
+    }
